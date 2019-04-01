@@ -143,73 +143,76 @@ __webpack_require__.r(__webpack_exports__);
 var GameService = /** @class */ (function () {
     function GameService(gameResult) {
         this.gameResult = gameResult;
-        this.rockPaperScissors = [1, 2, 3];
-    }
-    GameService.prototype.Play = function (userChoice) {
         // '1' - Paper , '2' - Rock , '3' - Scissors
+        this.rockPaperScissors = ['r', 'p', 's'];
+    }
+    GameService.prototype.win = function () {
+        var _this = this;
+        console.log('Win');
+        this.messageOut = 'You WON!';
+        this.gameResult.addUserPoint();
+        document.getElementById(this.userChoice).classList.add('green-glow');
+        setTimeout(function () { document.getElementById(_this.userChoice).classList.remove('green-glow'); }, 1000);
+    };
+    GameService.prototype.lose = function () {
+        var _this = this;
+        console.log('Lose');
+        this.messageOut = 'You LOSE!';
+        this.gameResult.addCompPoint();
+        document.getElementById(this.userChoice).classList.add('red-glow');
+        setTimeout(function () { document.getElementById(_this.userChoice).classList.remove('red-glow'); }, 1000);
+    };
+    GameService.prototype.draw = function () {
+        var _this = this;
+        console.log('Draw');
+        this.messageOut = 'It is DRAW!';
+        document.getElementById(this.userChoice).classList.add('gray-glow');
+        setTimeout(function () { document.getElementById(_this.userChoice).classList.remove('gray-glow'); }, 1000);
+    };
+    GameService.prototype.Play = function (uChoice) {
+        this.userChoice = uChoice;
         this.compChoice = this.rockPaperScissors[Math.floor(Math.random() * this.rockPaperScissors.length)];
         // console.log(this.compChoice);
-        // For Paper:
-        if (userChoice === 'paper' && this.compChoice === 1) {
-            this.messageOut = 'User choice: ' + userChoice + '. Comp choice: paper. It is draw!';
-            document.getElementById(userChoice).classList.add('gray-glow');
-            setTimeout(function () { document.getElementById(userChoice).classList.remove('gray-glow'); }, 1000);
-        }
-        else if (userChoice === 'paper' && this.compChoice === 2) {
-            this.gameResult.addUserPoint();
-            console.log('User won!');
-            this.messageOut = 'User choice: ' + userChoice + '. Comp choice: rock. You won!';
-            document.getElementById(userChoice).classList.add('green-glow');
-            setTimeout(function () { document.getElementById(userChoice).classList.remove('green-glow'); }, 1000);
-        }
-        else if (userChoice === 'paper' && this.compChoice === 3) {
-            this.gameResult.addCompPoint();
-            console.log('Computer won!');
-            this.messageOut = 'User choice: ' + userChoice + '. Comp choice: scissors. You lost!';
-            document.getElementById(userChoice).classList.add('red-glow');
-            setTimeout(function () { document.getElementById(userChoice).classList.remove('red-glow'); }, 1000);
-        }
-        // For Rock:
-        if (userChoice === 'rock' && this.compChoice === 1) {
-            this.gameResult.addCompPoint();
-            console.log('Computer won!');
-            this.messageOut = 'User choice: ' + userChoice + '. Comp choice: paper. You lost!';
-            document.getElementById(userChoice).classList.add('red-glow');
-            setTimeout(function () { document.getElementById(userChoice).classList.remove('red-glow'); }, 1000);
-        }
-        else if (userChoice === 'rock' && this.compChoice === 2) {
-            console.log('Draw!');
-            this.messageOut = 'User choice: ' + userChoice + '. Comp choice: rock. It is draw!';
-            document.getElementById(userChoice).classList.add('gray-glow');
-            setTimeout(function () { document.getElementById(userChoice).classList.remove('gray-glow'); }, 1000);
-        }
-        else if (userChoice === 'rock' && this.compChoice === 3) {
-            this.gameResult.addUserPoint();
-            console.log('User won!');
-            this.messageOut = 'User choice: ' + userChoice + '. Comp choice: scissors. You won!';
-            document.getElementById(userChoice).classList.add('green-glow');
-            setTimeout(function () { document.getElementById(userChoice).classList.remove('green-glow'); }, 1000);
-        }
-        // For Scissors:
-        if (userChoice === 'scissors' && this.compChoice === 1) {
-            this.gameResult.addUserPoint();
-            console.log('User won!');
-            this.messageOut = 'User choice: ' + userChoice + '. Comp choice: paper. You won!';
-            document.getElementById(userChoice).classList.add('green-glow');
-            setTimeout(function () { document.getElementById(userChoice).classList.remove('green-glow'); }, 1000);
-        }
-        else if (userChoice === 'scissors' && this.compChoice === 2) {
-            this.gameResult.addCompPoint();
-            console.log('Computer won!');
-            this.messageOut = 'User choice: ' + userChoice + '. Comp choice: rock. You lost!';
-            document.getElementById(userChoice).classList.add('red-glow');
-            setTimeout(function () { document.getElementById(userChoice).classList.remove('red-glow'); }, 1000);
-        }
-        else if (userChoice === 'scissors' && this.compChoice === 3) {
-            console.log('Draw!');
-            this.messageOut = 'User choice: ' + userChoice + '. Comp choice: scissors. It is draw!';
-            document.getElementById(userChoice).classList.add('gray-glow');
-            setTimeout(function () { document.getElementById(userChoice).classList.remove('gray-glow'); }, 1000);
+        switch (uChoice + this.compChoice) {
+            // For Paper:
+            case 'pp': {
+                this.draw();
+                break;
+            }
+            case 'pr': {
+                this.win();
+                break;
+            }
+            case 'ps': {
+                this.lose();
+                break;
+            }
+            // For Rock:
+            case 'rr': {
+                this.draw();
+                break;
+            }
+            case 'rp': {
+                this.lose();
+                break;
+            }
+            case 'rs': {
+                this.win();
+                break;
+            }
+            // For Scissors:
+            case 'sr': {
+                this.lose();
+                break;
+            }
+            case 'sp': {
+                this.win();
+                break;
+            }
+            case 'ss': {
+                this.draw();
+                break;
+            }
         }
         console.log(this.gameResult.getResult());
     };
@@ -284,7 +287,7 @@ module.exports = ".my-container {\r\n  background-color: black;\r\n  margin-bott
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"my-header\">\r\n  <h1\r\n    class=\"text-center my-header\"\r\n    style=\"font-family: 'Arial Black'\">Welcome to Rock-Paper-Scissors game!</h1>\r\n</div>\r\n<br>\r\n<br>\r\n<div class=\"my-container\">\r\n  <div>\r\n    <div class=\"row my-container\">\r\n      <div class=\"score-board\">\r\n        <div class=\"badge\" id=\"user-label\">User</div>\r\n        <div class=\"badge\" id=\"comp-label\">Comp</div>\r\n        <span id=\"user\">{{ result.getResult()[0] }}</span><span>:</span><span id=\"comp\">{{ result.getResult()[1] }} </span>\r\n      </div>\r\n      <p class=\"my-font text-center\">{{ game.messageOut }}</p>\r\n    </div>\r\n  </div>\r\n  <br>\r\n  <br>\r\n  <div>\r\n    <div class=\"row text-center\">\r\n      <div class=\"col-xs-12\">\r\n        <img\r\n          class=\"choice\"\r\n          (click)=\"onClick('paper')\"\r\n          id=\"paper\"\r\n          src=\"assets/images/paper.png\"\r\n          width=\"100\"\r\n          height=\"100\">\r\n        <img\r\n          class=\"choice\"\r\n          (click)=\"onClick('rock')\"\r\n          id=\"rock\"\r\n          src=\"assets/images/rock.png\"\r\n          width=\"100\"\r\n          height=\"100\">\r\n        <img\r\n          class=\"choice\"\r\n          (click)=\"onClick('scissors')\"\r\n          id=\"scissors\"\r\n          src=\"assets/images/scissors.png\"\r\n          width=\"100\"\r\n          height=\"100\">\r\n      </div>\r\n      <span class=\"my-font\">Make your move!</span>\r\n      <h1 class=\"my-font\">Comp choice:</h1>\r\n      <div\r\n        class=\"col-xs-12\"\r\n        [ngSwitch]=\"game.compChoice\">\r\n        <img\r\n          src=\"assets/images/paper.png\"\r\n          alt=\"paper\"\r\n          height=\"150\"\r\n          width=\"150\"\r\n          *ngSwitchCase=\"1\">\r\n        <img\r\n          src=\"assets/images/rock.png\"\r\n          alt=\"rock\"\r\n          height=\"150\"\r\n          width=\"150\"\r\n          *ngSwitchCase=\"2\">\r\n        <img\r\n          src=\"assets/images/scissors.png\"\r\n          alt=\"scissors\"\r\n          height=\"150\"\r\n          width=\"150\"\r\n          *ngSwitchCase=\"3\">\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"my-header\">\r\n  <h1\r\n    class=\"text-center my-header\"\r\n    style=\"font-family: 'Arial Black'\">Welcome to Rock-Paper-Scissors game!</h1>\r\n</div>\r\n<br>\r\n<br>\r\n<div class=\"my-container\">\r\n  <div>\r\n    <div class=\"row my-container\">\r\n      <div class=\"score-board\">\r\n        <div class=\"badge\" id=\"user-label\">User</div>\r\n        <div class=\"badge\" id=\"comp-label\">Comp</div>\r\n        <span id=\"user\">{{ result.getResult()[0] }}</span><span>:</span><span id=\"comp\">{{ result.getResult()[1] }} </span>\r\n      </div>\r\n      <p class=\"my-font text-center\">{{ game.messageOut }}</p>\r\n    </div>\r\n  </div>\r\n  <br>\r\n  <br>\r\n  <div>\r\n    <div class=\"row text-center\">\r\n      <div class=\"col-xs-12\">\r\n        <img\r\n          class=\"choice\"\r\n          (click)=\"onClick('p')\"\r\n          id=\"p\"\r\n          src=\"assets/images/paper.png\"\r\n          width=\"100\"\r\n          height=\"100\">\r\n        <img\r\n          class=\"choice\"\r\n          (click)=\"onClick('r')\"\r\n          id=\"r\"\r\n          src=\"assets/images/rock.png\"\r\n          width=\"100\"\r\n          height=\"100\">\r\n        <img\r\n          class=\"choice\"\r\n          (click)=\"onClick('s')\"\r\n          id=\"s\"\r\n          src=\"assets/images/scissors.png\"\r\n          width=\"100\"\r\n          height=\"100\">\r\n      </div>\r\n      <span class=\"my-font\">Make your move!</span>\r\n      <h1 class=\"my-font\">Comp choice:</h1>\r\n      <div\r\n        class=\"col-xs-12\"\r\n        [ngSwitch]=\"game.compChoice\">\r\n        <img\r\n          src=\"assets/images/paper.png\"\r\n          alt=\"paper\"\r\n          height=\"150\"\r\n          width=\"150\"\r\n          *ngSwitchCase=\"'p'\">\r\n        <img\r\n          src=\"assets/images/rock.png\"\r\n          alt=\"rock\"\r\n          height=\"150\"\r\n          width=\"150\"\r\n          *ngSwitchCase=\"'r'\">\r\n        <img\r\n          src=\"assets/images/scissors.png\"\r\n          alt=\"scissors\"\r\n          height=\"150\"\r\n          width=\"150\"\r\n          *ngSwitchCase=\"'s'\">\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -393,7 +396,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\rockpaperscissors-project\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! E:\rockPaperScissors-project\src\main.ts */"./src/main.ts");
 
 
 /***/ })

@@ -598,8 +598,8 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\rockpaperscissors-project\src\styles.css */"./src/styles.css");
-module.exports = __webpack_require__(/*! E:\rockpaperscissors-project\node_modules\bootstrap\dist\css\bootstrap.min.css */"./node_modules/bootstrap/dist/css/bootstrap.min.css");
+__webpack_require__(/*! E:\rockPaperScissors-project\src\styles.css */"./src/styles.css");
+module.exports = __webpack_require__(/*! E:\rockPaperScissors-project\node_modules\bootstrap\dist\css\bootstrap.min.css */"./node_modules/bootstrap/dist/css/bootstrap.min.css");
 
 
 /***/ })
