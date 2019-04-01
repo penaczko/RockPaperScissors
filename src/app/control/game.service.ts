@@ -14,26 +14,32 @@ export class GameService {
   constructor(private gameResult: ResultService) { }
 
   win() {
+    this.removeStylingClass();
     console.log('Win');
     this.messageOut = 'You WON!';
     this.gameResult.addUserPoint();
     document.getElementById(this.userChoice).classList.add('green-glow');
-    setTimeout(() => {document.getElementById(this.userChoice).classList.remove('green-glow')}, 1000 );
   }
 
   lose() {
+    this.removeStylingClass();
     console.log('Lose');
     this.messageOut = 'You LOSE!';
     this.gameResult.addCompPoint();
     document.getElementById(this.userChoice).classList.add('red-glow');
-    setTimeout(() => {document.getElementById(this.userChoice).classList.remove('red-glow')}, 1000 );
   }
 
   draw() {
+    this.removeStylingClass();
     console.log('Draw');
     this.messageOut = 'It is DRAW!';
     document.getElementById(this.userChoice).classList.add('gray-glow');
-    setTimeout(() => {document.getElementById(this.userChoice).classList.remove('gray-glow')}, 1000 );
+  }
+
+  removeStylingClass() {
+    document.getElementById('r').classList.remove('green-glow', 'red-glow', 'gray-glow');
+    document.getElementById('p').classList.remove('green-glow', 'red-glow', 'gray-glow');
+    document.getElementById('s').classList.remove('green-glow', 'red-glow', 'gray-glow');
   }
 
   Play(uChoice: string) {
