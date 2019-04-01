@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GameService } from '../control/game.service';
+import {ResultService} from '../model/result.service';
 
 @Component({
   selector: 'app-view',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private game: GameService,
+              private result: ResultService) { }
 
   ngOnInit() {
   }
 
+  onClick(choice: string) {
+    this.game.Play(choice);
+  }
 }
