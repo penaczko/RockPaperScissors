@@ -147,27 +147,29 @@ var GameService = /** @class */ (function () {
         this.rockPaperScissors = ['r', 'p', 's'];
     }
     GameService.prototype.win = function () {
-        var _this = this;
+        this.removeStylingClass();
         console.log('Win');
         this.messageOut = 'You WON!';
         this.gameResult.addUserPoint();
         document.getElementById(this.userChoice).classList.add('green-glow');
-        setTimeout(function () { document.getElementById(_this.userChoice).classList.remove('green-glow'); }, 1000);
     };
     GameService.prototype.lose = function () {
-        var _this = this;
+        this.removeStylingClass();
         console.log('Lose');
         this.messageOut = 'You LOSE!';
         this.gameResult.addCompPoint();
         document.getElementById(this.userChoice).classList.add('red-glow');
-        setTimeout(function () { document.getElementById(_this.userChoice).classList.remove('red-glow'); }, 1000);
     };
     GameService.prototype.draw = function () {
-        var _this = this;
+        this.removeStylingClass();
         console.log('Draw');
         this.messageOut = 'It is DRAW!';
         document.getElementById(this.userChoice).classList.add('gray-glow');
-        setTimeout(function () { document.getElementById(_this.userChoice).classList.remove('gray-glow'); }, 1000);
+    };
+    GameService.prototype.removeStylingClass = function () {
+        document.getElementById('r').classList.remove('green-glow', 'red-glow', 'gray-glow');
+        document.getElementById('p').classList.remove('green-glow', 'red-glow', 'gray-glow');
+        document.getElementById('s').classList.remove('green-glow', 'red-glow', 'gray-glow');
     };
     GameService.prototype.Play = function (uChoice) {
         this.userChoice = uChoice;
@@ -287,7 +289,7 @@ module.exports = ".my-container {\r\n  background-color: black;\r\n  margin-bott
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"my-header\">\r\n  <h1\r\n    class=\"text-center my-header\"\r\n    style=\"font-family: 'Arial Black'\">Welcome to Rock-Paper-Scissors game!</h1>\r\n</div>\r\n<br>\r\n<br>\r\n<div class=\"my-container\">\r\n  <div>\r\n    <div class=\"row my-container\">\r\n      <div class=\"score-board\">\r\n        <div class=\"badge\" id=\"user-label\">User</div>\r\n        <div class=\"badge\" id=\"comp-label\">Comp</div>\r\n        <span id=\"user\">{{ result.getResult()[0] }}</span><span>:</span><span id=\"comp\">{{ result.getResult()[1] }} </span>\r\n      </div>\r\n      <p class=\"my-font text-center\">{{ game.messageOut }}</p>\r\n    </div>\r\n  </div>\r\n  <br>\r\n  <br>\r\n  <div>\r\n    <div class=\"row text-center\">\r\n      <div class=\"col-xs-12\">\r\n        <img\r\n          class=\"choice\"\r\n          (click)=\"onClick('p')\"\r\n          id=\"p\"\r\n          src=\"assets/images/paper.png\"\r\n          width=\"100\"\r\n          height=\"100\">\r\n        <img\r\n          class=\"choice\"\r\n          (click)=\"onClick('r')\"\r\n          id=\"r\"\r\n          src=\"assets/images/rock.png\"\r\n          width=\"100\"\r\n          height=\"100\">\r\n        <img\r\n          class=\"choice\"\r\n          (click)=\"onClick('s')\"\r\n          id=\"s\"\r\n          src=\"assets/images/scissors.png\"\r\n          width=\"100\"\r\n          height=\"100\">\r\n      </div>\r\n      <span class=\"my-font\">Make your move!</span>\r\n      <h1 class=\"my-font\">Comp choice:</h1>\r\n      <div\r\n        class=\"col-xs-12\"\r\n        [ngSwitch]=\"game.compChoice\">\r\n        <img\r\n          src=\"assets/images/paper.png\"\r\n          alt=\"paper\"\r\n          height=\"150\"\r\n          width=\"150\"\r\n          *ngSwitchCase=\"'p'\">\r\n        <img\r\n          src=\"assets/images/rock.png\"\r\n          alt=\"rock\"\r\n          height=\"150\"\r\n          width=\"150\"\r\n          *ngSwitchCase=\"'r'\">\r\n        <img\r\n          src=\"assets/images/scissors.png\"\r\n          alt=\"scissors\"\r\n          height=\"150\"\r\n          width=\"150\"\r\n          *ngSwitchCase=\"'s'\">\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"my-header\">\r\n  <h1\r\n    class=\"text-center my-header\"\r\n    style=\"font-family: 'Arial Black'\">Welcome to Rock-Paper-Scissors game!</h1>\r\n</div>\r\n<br>\r\n<br>\r\n<div class=\"my-container\">\r\n  <div>\r\n    <div class=\"row my-container\">\r\n      <div class=\"score-board\">\r\n        <div class=\"badge\" id=\"user-label\">User</div>\r\n        <div class=\"badge\" id=\"comp-label\">Comp</div>\r\n        <span id=\"user\">{{ result.getResult()[0] }}</span><span>:</span><span id=\"comp\">{{ result.getResult()[1] }} </span>\r\n      </div>\r\n      <h3 class=\"my-font text-center\">{{ game.messageOut }}</h3>\r\n    </div>\r\n  </div>\r\n  <br>\r\n  <br>\r\n  <div>\r\n    <div class=\"row text-center\">\r\n      <div class=\"col-xs-12\">\r\n        <img\r\n          class=\"choice\"\r\n          (click)=\"onClick('p')\"\r\n          id=\"p\"\r\n          src=\"assets/images/paper.png\"\r\n          width=\"100\"\r\n          height=\"100\">\r\n        <img\r\n          class=\"choice\"\r\n          (click)=\"onClick('r')\"\r\n          id=\"r\"\r\n          src=\"assets/images/rock.png\"\r\n          width=\"100\"\r\n          height=\"100\">\r\n        <img\r\n          class=\"choice\"\r\n          (click)=\"onClick('s')\"\r\n          id=\"s\"\r\n          src=\"assets/images/scissors.png\"\r\n          width=\"100\"\r\n          height=\"100\">\r\n      </div>\r\n      <span class=\"my-font\">Make your move!</span>\r\n      <h1 class=\"my-font\">Comp choice:</h1>\r\n      <div\r\n        class=\"col-xs-12\"\r\n        [ngSwitch]=\"game.compChoice\">\r\n        <img\r\n          src=\"assets/images/paper.png\"\r\n          alt=\"paper\"\r\n          height=\"150\"\r\n          width=\"150\"\r\n          *ngSwitchCase=\"'p'\">\r\n        <img\r\n          src=\"assets/images/rock.png\"\r\n          alt=\"rock\"\r\n          height=\"150\"\r\n          width=\"150\"\r\n          *ngSwitchCase=\"'r'\">\r\n        <img\r\n          src=\"assets/images/scissors.png\"\r\n          alt=\"scissors\"\r\n          height=\"150\"\r\n          width=\"150\"\r\n          *ngSwitchCase=\"'s'\">\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
