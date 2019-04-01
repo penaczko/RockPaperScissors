@@ -1,14 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
-html {
+html, app-root, app-view {
   background-color: black;
 }
 
-app-view {
-  background-color: black;
-}
-app-root {
-  background-color: black;
-}
 .my-container {
   background-color: black;
 }
